@@ -621,6 +621,7 @@ label.radio { display: inline-flex; align-items: center; gap: 5px; font-size: 14
         </select>
         <label class="lbl auto" for="chunkKB">块大小（KB）</label>
         <input type="number" id="chunkKB" value="300" min="1" step="1">
+        <span class="muted hidden" id="chunkHint">已按压缩结果自动推荐，可修改</span>
       </div>
       <div class="form-row">
         <button id="btnPreview" type="button">预估分析 →</button>
@@ -1159,10 +1160,15 @@ function getMode() {
 
 /* 多文件：维护用户选中的文件列表（可增删） */
 var selectedFiles = [];
+/* 块大小是否被用户手动改过：改过则预估不再自动覆盖推荐值 */
+var chunkKbDirty = false;
 
 function renderFileList() {
   var ul = $("fileList");
   var span = $("fileName");
+  /* 文件集变化 → 下次预估重新自动推荐块大小 */
+  chunkKbDirty = false;
+  $("chunkHint").classList.add("hidden");
   if (!selectedFiles.length) {
     ul.classList.add("hidden");
     ul.innerHTML = "";
@@ -1201,7 +1207,9 @@ function buildRequestBody() {
     mode: getMode(),
     template: $("templateSelect").value || "",
     bucket_hours: String($("bucketSelect").value),
-    max_chars: String(Math.round(kb * 1000))
+    max_chars: String(Math.round(kb * 1000)),
+    // 用户未手动改过块大小 → 告知后端按压缩结果自动推荐
+    auto_chunk: chunkKbDirty ? "0" : "1"
   };
   if (selectedFiles.length) {
     var fd = new FormData();
@@ -1210,6 +1218,7 @@ function buildRequestBody() {
     fd.append("template", params.template);
     fd.append("bucket_hours", params.bucket_hours);
     fd.append("max_chars", params.max_chars);
+    fd.append("auto_chunk", params.auto_chunk);
     return { body: fd, headers: undefined };
   }
   var path = $("pathInput").value.trim();
@@ -1249,6 +1258,11 @@ async function doPreview() {
 
 function renderEstimate(d) {
   d = d || {};
+  /* 自动推荐块大小：用户未手动改过时直接采用（值与本次预估的块数一致） */
+  if (d.recommended_max_chars && !chunkKbDirty) {
+    $("chunkKB").value = Math.ceil(Number(d.recommended_max_chars) / 1000);
+    $("chunkHint").classList.remove("hidden");
+  }
   $("estSize").textContent = fmtBytes(d.size_bytes);
   $("estLines").textContent = Number(d.line_count || 0).toLocaleString();
   $("estSpan").textContent = d.time_span || "-";
@@ -1984,6 +1998,10 @@ document.addEventListener("DOMContentLoaded", function () {
   $("btnSettings").addEventListener("click", openSettings);
   $("btnEditTemplates").addEventListener("click", openTemplateModal);
   $("btnPreview").addEventListener("click", doPreview);
+  $("chunkKB").addEventListener("input", function () {
+    chunkKbDirty = true;                    /* 手动改过 → 预估不再覆盖推荐值 */
+    $("chunkHint").classList.add("hidden");
+  });
   $("btnAnalyze").addEventListener("click", doAnalyze);
   $("btnDownload").addEventListener("click", downloadCompressed);
   $("btnOpenReport").addEventListener("click", copyReportPath);

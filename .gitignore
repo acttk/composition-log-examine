@@ -12,3 +12,4 @@ reports/
 
 # 临时文件
 _pathlib_check.txt
+_audit_result_ids.txt

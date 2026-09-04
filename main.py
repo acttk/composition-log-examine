@@ -173,6 +173,18 @@ def _source_label(filenames: list) -> str:
 
 # ─────────────────────── 预览 / 分析 ───────────────────────
 
+def recommend_max_chars(body_chars: int, cap: int = 300000, floor: int = 50000) -> int:
+    """按压缩后正文字符数推荐分块大小（字符数，向上取整到千位=整KB）。
+    目标：在单块不超过 cap 的前提下均衡分块，避免最后一块只剩零头。
+    例：245 万字符 → 9 块 × 274K；10 万字符 → 单块 100K。
+    小正文设 50K 下限：单块装得下，下限只为避免显示 2K 这类过小值。"""
+    if body_chars <= 0:
+        return cap
+    n = -(-body_chars // cap)                    # ceil(body/cap)：所需最少块数
+    rec = -(-body_chars // n // 1000) * 1000      # ceil(body/n) 取整到千字符
+    return min(max(rec, floor), cap)
+
+
 @app.post("/api/preview")
 def api_preview(payload=Depends(_resolve_input)):
     """只做解析+压缩，不调模型，秒级"""
@@ -181,7 +193,11 @@ def api_preview(payload=Depends(_resolve_input)):
         records = _merge_records(paths, filenames)
         c = compress(records)
         cfg = load_config()
-        max_chars = _to_int(fields.get("max_chars"), int(cfg.get("max_chars") or 300000))
+        recommended = recommend_max_chars(len(c["body"]))
+        # auto_chunk=1：用户未手动改过块大小 → 直接用推荐值预估（块数与展示值一致）
+        auto = str(fields.get("auto_chunk", "")).lower() in ("1", "true")
+        max_chars = recommended if auto else _to_int(fields.get("max_chars"),
+                                                     int(cfg.get("max_chars") or 300000))
         # 空 body 时 chunk_count 归零（chunk_body 对空串返回 [""]）
         chunks = chunk_body(c["body"], max_chars) if c["body"].strip() else []
         price = lookup_price(str(cfg.get("model") or ""))  # (输入¥/M, 输出¥/M) 或 None
@@ -198,6 +214,7 @@ def api_preview(payload=Depends(_resolve_input)):
                 "time_span": time_span,
                 "est_tokens": c["est_tokens"],
                 "chunk_count": len(chunks),
+                "recommended_max_chars": recommended,
                 "est_cost": est_cost,
                 "est_seconds": len(chunks) * 90}
     finally:
