@@ -1,0 +1,14 @@
+.superpowers/
+__pycache__/
+.pytest_cache/
+
+# 敏感配置（含 API Key）— 使用 config.example.json 作为模板
+config.json
+
+# 运行时数据与本地上传日志
+usage_log.json
+reports/
+*.log
+
+# 临时文件
+_pathlib_check.txt

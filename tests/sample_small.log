@@ -1,0 +1,100 @@
+2026-09-03 13:59:14.826 [biz-pool-20] INFO  c.y.c.m.s.i.VolcengineModelServiceImpl - 豆包模型会话结束（流式）, requestId:021788415068553770d3492782dd10cc0a489fec0a72ead67a048
+2026-09-03 13:59:14.875 [biz-pool-20] ERROR c.y.c.service.impl.PolishServiceImpl - resultId：2092912713964584960，润色第2次校验，当前字数：979，要求字数：800，上限：1040，合规：true
+2026-09-03 13:59:14.875 [biz-pool-20] ERROR c.y.c.service.impl.PolishServiceImpl - resultId：2092912713964584960，第2次校验字数合规，结束字数校验
+2026-09-03 13:59:14.876 [biz-pool-20] INFO  c.y.c.r.WeightedCompositeRouter - 调用方显式指定模型ep-20260416105912-w7chh，命中厂商VOLCENGINE
+2026-09-03 13:59:14.876 [biz-pool-20] INFO  c.y.c.m.s.i.VolcengineModelServiceImpl - 豆包模型会话开始（流式）
+2026-09-03 13:59:15.977 [grading-gateway-7] INFO  c.y.c.m.s.impl.QwenModelServiceImpl - 千问模型会话结束, requestId:cd3fb0f8-c332-9596-8d34-654f1e6d7168
+2026-09-03 13:59:16.012 [grading-gateway-7] INFO  c.y.c.g.stage.AbstractGradingStage - 阶段执行成功, resultId:2092912734290182144, stage:REPORT_REVIEW, costMs:33406
+2026-09-03 13:59:17.033 [pool-idle-monitor-1] INFO  c.y.c.utils.GradingThreadPoolUtil - 线程池监控:线程池监控[活跃线程数=41, 核心线程数=80, 最大线程数=100, 当前线程数=80, 历史最大线程数=80, 队列任务数=0, 队列剩余容量=1000]
+2026-09-03 13:59:17.263 [grading-gateway-2] INFO  c.y.c.m.s.i.VolcengineModelServiceImpl - 豆包模型会话结束（流式）, requestId:021788415091246770d3492782dd10cc0a489fec0a72eadb8c612
+2026-09-03 13:59:17.290 [grading-gateway-2] INFO  c.y.c.s.impl.AppreciationServiceImpl - resultId: 2092912752376020992, 好词好句、错句修改、错别字:{
+    "excellentSentences": [
+        {
+            "originalSentence": "年轻不仅是气盛,更多的是对未知前路的迷茫。虽说路在自己脚下,但什么事都有第一次,年轻的生命不知道自己选择是对是错,不知道前路是万丈光明还是无尽深渊。",
+            "appreciation": "开篇直陈年轻人的普遍迷茫状态，用对比句式具象化前路未知感，共情力强，精准契合主题。"
+        },
+        {
+            "originalSentence": "这好比农村的土路,这里没有预设道路,只不过是有人发现了这条小径可以通往想去的地方才形成了路。正如鲁迅说的:‘世上丰没有路,走的人多了便成了路。’",
+            "appreciation": "用农村土路作喻呼应前文水泥路类比，引用鲁迅名言佐证论点，论证形象生动，说服力强。"
+        }
+    ],
+    "expressionOptimizations": [
+        {
+            "originalSentence": "虽然过来人给出的建议有利有效,但终归利大于敝,他们的建议是在迷茫中最安全,最稳妥的选择。",
+            "optimizationSuggestion": "逻辑关联词使用不当表意矛盾，改为“虽说过来人建议有利有弊，但整体利大于弊”，评价更客观严谨。"
+        },
+        {
+            "originalSentence": "“过来人”可以是父母、老师、学长、前辈辈。",
+            "optimizationSuggestion": "“前辈辈”语义重复冗余，改为“‘过来人’可以是父母、老师、学长、前辈”，表述更简洁清晰。"
+        }
+    ],
+    "typoCorrections": [
+        {
+            "sentenceWithTypo": "在迷茫的时候不防所取他人的建议",
+            "contentBeforeTypo": "在迷茫的时候不",
+            "typo": "防",
+            "contentAfterTypo": "所取他人的建议",
+            "correctWriting": "妨"
+        },
+        {
+            "sentenceWithTypo": "在迷茫的时候不防所取他人的建议",
+            "contentBeforeTypo": "在迷茫的时候不妨",
+            "typo": "所",
+            "contentAfterTypo": "取他人的建议",
+            "correctWriting": "听"
+        },
+        {
+            "sentenceWithTypo": "但终归利大于敝",
+            "contentBeforeTypo": "但终归利大于",
+            "typo": "敝",
+            "contentAfterTypo": ",他们的建议是在迷茫中最安全",
+            "correctWriting": "弊"
+        },
+        {
+            "sentenceWithTypo": "正如鲁迅说的:‘世上丰没有路,走的人多了便成了路。’",
+            "contentBeforeTypo": "正如鲁迅说的:‘世上",
+            "typo": "丰",
+            "contentAfterTypo": "没有路,走的人多了便成了路。’",
+            "correctWriting": "本"
+        },
+        {
+            "sentenceWithTypo": "去探索出一条折的路",
+            "contentBeforeTypo": "去探索出一条",
+            "typo": "折",
+            "contentAfterTypo": "的路,但也要谨慎决择",
+            "correctWriting": "新"
+        },
+        {
+            "sentenceWithTypo": "但也要谨慎决择,需贴合现实。",
+            "contentBeforeTypo": "但也要谨慎",
+            "typo": "决",
+            "contentAfterTypo": ",需贴合现实。",
+            "correctWriting": "抉"
+        },
+        {
+            "sentenceWithTypo": "选择那条独属子自己的前路",
+            "contentBeforeTypo": "选择那条独属",
+            "typo": "子",
+            "contentAfterTypo": "自己的前路",
+            "correctWriting": "于"
+        }
+    ]
+}
+2026-09-03 13:59:17.422 [grading-gateway-2] INFO  c.y.c.g.stage.AbstractGradingStage - 阶段执行成功, resultId:2092912752376020992, stage:APPRECIATION, costMs:66182
+2026-09-03 13:59:17.422 [biz-pool-10] INFO  c.y.c.g.stage.ParallelGatewayStage - 并行网关执行完成, resultId:2092912752376020992, gateway:REVIEW_AND_POLISH, costMs:73200
+2026-09-03 13:59:17.422 [biz-pool-10] INFO  c.y.c.g.stage.AbstractGradingStage - 阶段开始执行, resultId:2092912752376020992, stage:POLISH
+2026-09-03 13:59:17.424 [biz-pool-10] INFO  c.y.c.r.WeightedCompositeRouter - 调用方显式指定模型ep-20260416105855-qhr5g，命中厂商VOLCENGINE
+2026-09-03 13:59:17.424 [biz-pool-10] INFO  c.y.c.m.s.i.VolcengineModelServiceImpl - 豆包模型会话开始（流式）
+2026-09-03 13:59:19.325 [biz-pool-13] INFO  c.y.c.m.s.i.VolcengineModelServiceImpl - 豆包模型会话结束（流式）, requestId:021788415098263770d3492782dd10cc0a489fec0a72eadf17437
+2026-09-03 13:59:19.362 [biz-pool-13] ERROR c.y.c.service.impl.PolishServiceImpl - resultId：2092912751797207040，润色第1次校验，当前字数：859，要求字数：800，上限：1040，合规：true
+2026-09-03 13:59:19.362 [biz-pool-13] ERROR c.y.c.service.impl.PolishServiceImpl - resultId：2092912751797207040，第1次校验字数合规，结束字数校验
+2026-09-03 13:59:19.364 [biz-pool-13] INFO  c.y.c.r.WeightedCompositeRouter - 调用方显式指定模型ep-20260416105832-6rpcc，命中厂商VOLCENGINE
+2026-09-03 13:59:19.364 [biz-pool-13] INFO  c.y.c.m.s.i.VolcengineModelServiceImpl - 豆包模型会话开始（流式）
+2026-09-03 13:59:20.068 [biz-pool-42] INFO  c.y.c.m.s.i.VolcengineModelServiceImpl - 豆包模型会话结束（流式）, requestId:021788415124523770d3492782dd10cc0a489fec0a72eadb872e1
+2026-09-03 13:59:20.108 [biz-pool-42] INFO  c.y.c.s.i.ArbitrationScoringServiceImpl - 仲裁评分完成, resultId:2092912736634798080, attempt:1, model:ep-20260416105944-qgkhf, totalScore:37
+2026-09-03 13:59:20.108 [biz-pool-42] INFO  c.y.c.g.stage.AbstractGradingStage - 阶段执行成功, resultId:2092912736634798080, stage:ARBITRATION, costMs:35591
+2026-09-03 13:59:20.108 [biz-pool-42] INFO  c.y.c.g.stage.ParallelGatewayStage - 并行网关开始执行, resultId:2092912736634798080, gateway:REVIEW_AND_POLISH, branches:[REPORT_REVIEW, APPRECIATION]
+2026-09-03 13:59:20.108 [grading-gateway-8] INFO  c.y.c.g.stage.AbstractGradingStage - 阶段开始执行, resultId:2092912736634798080, stage:REPORT_REVIEW
+2026-09-03 13:59:20.108 [grading-gateway-21] INFO  c.y.c.g.stage.AbstractGradingStage - 阶段开始执行, resultId:2092912736634798080, stage:APPRECIATION
+2026-09-03 13:59:20.110 [grading-gateway-8] INFO  c.y.c.r.WeightedCompositeRouter - 调用方显式指定模型qwen3.7-plus，命中厂商QWEN
+2026-09-03 13:59:20.110 [grading-gateway-8] INFO  c.y.c.m.s.impl.QwenModelServiceImpl - 千问模型会话开始
