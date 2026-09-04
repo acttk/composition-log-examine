@@ -1,0 +1,10 @@
+{
+  "provider": "moonshot",
+  "base_url": "https://api.kimi.com/coding/v1",
+  "api_key": "在此填入你的 API Key",
+  "model": "k3",
+  "concurrency": 10,
+  "max_chars": 300000,
+  "bucket_hours": 2,
+  "price_per_m": 27.0
+}
